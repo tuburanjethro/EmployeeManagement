@@ -39,5 +39,5 @@ namespace EmployeeManagement
  *  
  *  Kestral:
  *      - Cross platform web server for ASP.Net Core
- *      - 
+ *      - If launced from dotnet run command webserver will be Kestral(dotnet.exe) not IIS
  */

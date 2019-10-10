@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework><!--Specify the target framework for the application-->
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel><!--How the net core app should be hosted (InProcess or OutOfProcess)-->
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel><!--How the net core app should be hosted (InProcess or OutOfProcess)-->
   </PropertyGroup>
 
   <ItemGroup>

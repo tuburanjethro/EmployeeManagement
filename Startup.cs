@@ -29,7 +29,7 @@ namespace EmployeeManagement
             {
                 //await context.Response.WriteAsync("Hello World!");
 
-                //name of the process that is running and hosting our code
+                //name of the process that is running and hosting our code (IIS or dotnet(Kestral))
                 await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
             });
         }
