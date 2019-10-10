@@ -1,21 +1,37 @@
-﻿{
+﻿/* This file is only required for a local development machine. 
+  
+   Possible Scenarios:
+   _______________________________________________________________________________________________________
+   Command Name  |  AspNetCoreHostingModel(check .csproj)  |  Internal Web Server  |  External Web Server
+   _______________________________________________________________________________________________________
+   Project       |  Hosting Setting is ignored             |  Only one web server - Kestrel
+   -------------------------------------------------------------------------------------------------------
+   IISExpress    |  InProcess                              |  Only one web server - IIS Express
+   -------------------------------------------------------------------------------------------------------
+   IISExpress    |  OutOfProcess                           |  Kestral              |  IIS Express
+   -------------------------------------------------------------------------------------------------------
+   IIS           |  InProcess                              |  Only one web server - IIS
+
+ */
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:55755",
       "sslPort": 0
     }
   },
   "profiles": {
-    "IIS Express": {
+    "IIS Express": { //f5
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MyKey": "Value of MyKey from environment variable"
       }
     },
-    "EmployeeManagement": {
+    "EmployeeManagement": { //dotnet run
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5000",

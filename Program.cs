@@ -40,4 +40,13 @@ namespace EmployeeManagement
  *  Kestral:
  *      - Cross platform web server for ASP.Net Core
  *      - If launced from dotnet run command webserver will be Kestral(dotnet.exe) not IIS
+ *      - Kestral can be used as the internet faceing web server 
+ *          [Internet] <---Http---> [Kestral(dotnet.exe)]
+ *          
+ *      - Kestral can be used in combination with a reverse proxy
+ *          [Internet] <---Http---> [Reverse Proxy Server] <---Http---> [Kestral(dotnet.exe)]
+ *                                  (IIS, Nginx, Apache)
+ *                                  
+ *      - Reverse Proxy Server: provides an extra layer of security
  */
+
