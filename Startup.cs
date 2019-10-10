@@ -25,23 +25,38 @@ namespace EmployeeManagement
         {
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the 'HTTP request pipeline'.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
+                // Middleware: IapplicationBUilder.UseDeveloperExceptionPage()
                 app.UseDeveloperExceptionPage();
             }
 
+            //Middleware: IapplicationBUilder.Run()
             app.Run(async (context) =>
             {
+                //Examples
+                {
                 //await context.Response.WriteAsync("Hello World!");
-
                 //name of the process that is running and hosting our code (IIS or dotnet(Kestral))
                 //await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
+                }
 
                 await context.Response.WriteAsync(_config["MyKey"]);
             });
         }
     }
 }
+
+// MiddleWare in ASP.NET Core
+/* - Has access to both Request and Response
+ * - May simply pass the Request to the next Middleware
+ * - May handle the Request and short-circuit the pipeline
+ * - May process the outgoing Response
+ * - Middlewares are executed in the order they are added
+ * 
+ * Example Pipeline:
+ *     ... <----> Logging <----> Static Files <----> MVC <----> ...
+ */
