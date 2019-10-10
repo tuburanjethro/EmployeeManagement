@@ -27,7 +27,10 @@ namespace EmployeeManagement
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                //await context.Response.WriteAsync("Hello World!");
+
+                //name of the process that is running and hosting our code
+                await context.Response.WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
             });
         }
     }

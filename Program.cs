@@ -12,6 +12,9 @@ namespace EmployeeManagement
 {
     public class Program
     {
+        /* At runtime the program looks for the entry point (Main). So it initially starts as a Console application.
+         * Main() configures ASP.NET Core and starts it and at that point it becomes an ASP.NET Core web application
+         */
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
@@ -22,3 +25,19 @@ namespace EmployeeManagement
                 .UseStartup<Startup>();
     }
 }
+
+/* Note: CreateDefaultBuilder()
+ *          - Sets up the web server
+ *          - Loading the host and application configutarion from various configuration sources
+ *          - Configuring logging
+ *          
+ * An ASP.NET core applicaiton can be hosted
+ *  - InProcess: - CreateDefaultBuilder() calls UseIIS() method and host the app inside of the IIS worker process.
+ *               - This type of hosting delivers higher request throughput.
+ * 
+ *  - OutOfProcess: - 2 Web Servers, Internal(Kestral) and External(IIS, Nginx or Apache)
+ *  
+ *  Kestral:
+ *      - Cross platform web server for ASP.Net Core
+ *      - 
+ */
