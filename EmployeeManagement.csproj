@@ -1,13 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TargetFramework>netcoreapp2.2</TargetFramework><!--Specify the target framework for the application-->
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel><!--How the net core app should be hosted (InProcess or OutOfProcess)-->
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <!--PackageReference: Used to reference the NuGet package that is installed for the application-->
+    <PackageReference Include="Microsoft.AspNetCore.App" /><!--Metapackage-->
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
+
+<!--Note: File/Folder references are no longer included in the project file
+          Every file in the project used to be in the csproj but now the 
+          'File System' determines what files and folders belong to the project
+          
+    InProcess hosts the app inside the IIS worker process (w3wp.exe)
+    OutOfProcess hosting model forward web requests to a backend ASP.NET Core app running the Kestrel server
+    
+    Metapackage: contains a list of dependencies (other packages)
+-->
