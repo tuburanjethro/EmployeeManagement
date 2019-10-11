@@ -32,17 +32,20 @@ namespace EmployeeManagement
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //Developer Exception page shows a detailed error for developers. Instead of page not found.
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+                {
+                    //Shows the area of code where the exception is thrown.
+                    SourceCodeLineCount = 10
+                };
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
-
-            FileServerOptions fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
             
-            app.UseFileServer(fileServerOptions);
+            app.UseFileServer();
 
             app.Run(async (context) =>
             {
+                throw new Exception("Some error processing the request");
                 await context.Response.WriteAsync("Hello World");
             });
         }
@@ -114,4 +117,19 @@ namespace EmployeeManagement
  *  
  * UseStaticFiles();
  * - Allows you to serve static files
+ */
+
+/* Developer Exception Page:
+ *   - To enable plug in 'UseDeveloperExceptionPage' Middleware in the pipeline
+ *   - Must be be plugged in the pipline 'as early as possible'
+ *   - Contains 'Stack Trace, Query String, Cookies and HTTP headers'
+ *   - For customizing use 'DeveloperExceptionPageOptions'
+ *   - E.g.
+ *          //Developer Exception page shows a detailed error for developers. Instead of page not found.
+ *          DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+ *          {
+ *              //Shows the area of code where the exception is thrown.
+ *              SourceCodeLineCount = 10
+ *          };
+ *          app.UseDeveloperExceptionPage(developerExceptionPageOptions);
  */
