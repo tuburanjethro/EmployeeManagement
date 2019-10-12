@@ -32,21 +32,14 @@ namespace EmployeeManagement
         {
             if (env.IsDevelopment())
             {
-                //Developer Exception page shows a detailed error for developers. Instead of page not found.
-                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
-                {
-                    //Shows the area of code where the exception is thrown.
-                    SourceCodeLineCount = 10
-                };
-                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+                app.UseDeveloperExceptionPage();
             }
             
-            app.UseFileServer();
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
-                throw new Exception("Some error processing the request");
-                await context.Response.WriteAsync("Hello World");
+                await context.Response.WriteAsync("Hoating Environment: "+ env.EnvironmentName);
             });
         }
     }
@@ -132,4 +125,16 @@ namespace EmployeeManagement
  *              SourceCodeLineCount = 10
  *          };
  *          app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+ *          
+ *    - Developer Exception page shows a detailed error for developers. Instead of page not found.
+ *          DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+ *          {
+ *              //Shows the area of code where the exception is thrown.
+ *              SourceCodeLineCount = 10
+ *          };
+ *          app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+ */
+
+/* Environment Variables:
+ *   -  IHostingEnvironment gives us access to the environment variables in launchSettings.json
  */
