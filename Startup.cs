@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,11 @@ namespace EmployeeManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+
+            /* If a controller requests this IRepository service, then create an instance of MockEmployeeRepository 
+             */
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
         }
 
         // Configure method gets called by the runtime. Use this method to configure the 
@@ -37,9 +43,11 @@ namespace EmployeeManagement
             
             app.UseStaticFiles();
 
+            app.UseMvcWithDefaultRoute();
+
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hoating Environment: "+ env.EnvironmentName);
+                await context.Response.WriteAsync("Hello World");
             });
         }
     }
@@ -136,5 +144,71 @@ namespace EmployeeManagement
  */
 
 /* Environment Variables:
- *   -  IHostingEnvironment gives us access to the environment variables in launchSettings.json
+ *     | Development | Staging | Production |
+ *      
+ *   -  ASPNETCORE_ENVIRONMENT variable sets the 'Runtime Environment'
+ *   -  On development machine we set it in 'launchsettings.json' file
+ *   -  On Staging or Production server we set in the 'operating system'
+ *   -  Use 'IHostingEnvironment' service to access the runtime environment
+ *   -  Runtime environement defaults to 'Production' if not set explicitly
+ *   -  In addition to 'standard environments' (Development, Staging, Production), 'custom environments' are supported
+ */
+
+/* MVC:
+ * An architechtural design pattern for implementing User Interface Layer of an application
+ * 
+ * Model: Set of classes that represent data + the logic to manage that data (Employee and EmployeeRepository)
+ * View: Contains the display logic to present the Model data provided to it by the Controller
+ * Controller: Handles the http request, work with the model, and selects a view to render that model
+ */
+
+/* Setup MVC in ASP.NET Core
+ *   - Step 1: Add the MVC Services to the Dependency Injection Container
+ *          public void ConfigureServices(IServiceCollection services)
+ *          {
+ *              services.AddMvc();
+ *          }
+ *        
+ *   - Step 2: Add MVC middleware to the Request Pipline
+ *          app.UseMvcWithDefaultRoute();
+ */
+
+/* AddMvc() vs AddMvcCore()
+ *   - AddMvcCore() method only adds the core MVC services
+ *   - AddMvc() method adds all the required MVC services (incl. Razor)
+ *   - AddMvc() method calls AddMvcCore() method internally
+ *   
+ * Note: .NET Core 3.0 has split this up into 
+ *      - services.AddControllers()
+ *          - Adds support for controllers and API-related features - but not views or pages.
+ *          - Used by the API template
+ *      - services.AddControllersWithViews()
+ *          - Adds support for controllers, API-related features, and views - but not pages.
+ *          - Used by the Web Application (MVC) template.
+ *      - services.AddRazorPages()
+ *          - Adds support for Razor Pages and minimal controller support.
+ *          - Used by the Web Application template.
+ *      - services.AddMvc() => services.AddControllers();
+ *                             services.AddRazorPages();
+ */
+
+/* Dependency Injection: constructor
+ *   - To Register with Dependency Injection Container
+ *          - AddSingleton()
+ *              - Only created one time per application and that instance is used throughout the application lifetime.
+ *          - AddTrandient()
+ *              - New instance is created EACH TIME it is requested
+ *          - AddScoped()
+ *              - Instance created once per scope.
+ *              - E.g. In an MVC application it creates one instance for each http request but used the same instance within that same request
+ *   - If a controller requests this IRepository service, then create an instance of MockEmployeeRepository 
+ *          - services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+ *      
+ *   - Why not create a new instance? 
+ *          - If use the 'new' implementation because it loosely couples the code
+ *          - Imagine having hundreds of controllers
+ *          
+ *   - Benefits of DI
+ *          - Loose Coupling
+ *          - Easy to unit test
  */
