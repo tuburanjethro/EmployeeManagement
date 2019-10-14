@@ -270,3 +270,19 @@ namespace EmployeeManagement
  *                  - E.g. Name: @Model.Name
  *          - Provides 'compile time type checking' and 'intellisense'
  */
+
+/* ViewModel in ASP.NET Core MVC
+ *   - We create a 'View Model' when a Model object does not contain all the data a view needs
+ *   - E.g.
+ *          HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel
+ *          {
+ *              Employee = _employeeRepository.GetEmployee(1),
+ *              PageTitle = "Employee Details"
+ *          };
+ *
+ *          return View(homeDetailsViewModel);
+ */
+
+/* List View in ASP.NET Core MVC
+ * 
+ */
