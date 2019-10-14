@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    @{ if (IsSectionDefined("Scripts"))
+        {
+            RenderSection("Scripts", required: true);
+        }
+    }
+</body>
+</html>
+
+<!--
+    (at)RenderBody() will be where the view specific content will be injected
+
+    (at)ViewBag is a way to pass small data from the controller to the view
+-->

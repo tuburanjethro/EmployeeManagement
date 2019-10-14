@@ -284,5 +284,27 @@ namespace EmployeeManagement
  */
 
 /* List View in ASP.NET Core MVC
- * 
+ *   - Create a model in the controller
+ *   - Pass that model to the view
+ *   - In the destination view, remember to add the @model at the top to specify the type of model the view can recieve
+ */
+
+/* Layout View in ASP.NET Core MVC
+ *   - Consistent look and behaviour for all the views in a web application
+ *   - Simillar to master page in ASP.NET Web Forms
+ *   - File on the file system with .cshtml
+ *   - Default name is _Layout.cshtml
+ *   - An application can have multiple layout views
+ *   
+ *   Sections
+ *   - provides a way to organize where certain page elements should be placed
+ *   - can be optional or mandatory
+ *   - A section in the layout view is rendered at the location where RenderSection() method is called
+ */
+
+/* _ViewStart in ASP.NET Core MVC
+ *   - Code in 'ViewStart' is executed before the code in an individual view
+ *   - Move the 'common code' such as setting the Layout property to ViewStart
+ *   - ViewStart reduces 'code redundancy' and 'improves maintainability'
+ *   - ViewStart is hierarchical (newest one overrides)
  */
