@@ -14,7 +14,7 @@ namespace EmployeeManagement
 {
     public class Startup
     {
-        private IConfiguration _config;
+        private readonly IConfiguration _config;
 
         public Startup(IConfiguration config)//Dependency injection, specifically constructor. (shortcut ctor tabx2)
         {
@@ -211,4 +211,32 @@ namespace EmployeeManagement
  *   - Benefits of DI
  *          - Loose Coupling
  *          - Easy to unit test
+ */
+
+/* Controller
+ *   - Handles the incoming http request
+ *   - Builds the model AND
+ *   - Returns the Model data to the caller if we are building an API OR
+ *   - Selects a View and pass the model data to the view
+ *   - The View then generates the required HTML to present the data
+ */
+
+/* View
+ *   - A view file has .cshtml extension
+ *   - HTML template with embedded Razor markup
+ *   - Contains logic to 'display' Model data
+ */
+
+/* Customize View Discovery
+ *   - View() pr View(object model)
+ *          - Looks for a view file with the same name as the action method
+ *          
+ *   - View(string viewName)
+ *          - Looks for a view file with your own custom name
+ *          - Can specify a view name or a view file path
+ *          - View file path can be absolute or relative
+ *          - With ABSOLUTE path .cshtml extension MUST be specified
+ *          - With RELATIVE path there is NO NEED for .cshtml to be specified
+ *          
+ *   - View(string viewName, object model)
  */

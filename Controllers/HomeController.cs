@@ -9,7 +9,7 @@ namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository;
 
         /* Note: Notice how we aren't passing a new instance of IEmployeeRepository into the constructor
          * Explain how this works.
@@ -22,6 +22,12 @@ namespace EmployeeManagement.Controllers
         public string Index()
         {
             return _employeeRepository.GetEmployee(1).Name;
+        }
+
+        public ViewResult Details()
+        {
+            Employee model = _employeeRepository.GetEmployee(1);
+            return View("Test", model);
         }
     }
 }
