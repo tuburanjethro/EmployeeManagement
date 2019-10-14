@@ -240,3 +240,33 @@ namespace EmployeeManagement
  *          
  *   - View(string viewName, object model)
  */
+
+/* Passing Data to View from Controller
+ * 
+ * Different ways of passing data to a View from a Controller
+ *   - Note: preferred approach is to pass data from a controller to a view is by using a Stringly Typed View
+ *   - ViewData
+ *          - Dictionary of weakly typed objects
+ *          - Use string keys to store and retrieve data
+ *          - Dynamically resolved at runtime
+ *          - Therefore no compile time type checking and Intellisens e.g. @ViewData["Employe"]
+ *          - E.g. In the controller
+ *                Employee model = _employeeRepository.GetEmployee(1);
+ *                ViewData["Employee"] = model;
+ *                ViewData["PageTitle"] = "Employee Details";
+ *          
+ *   - ViewBag
+ *          - A wrapper around ViewData
+ *          - Creates a loosely typed view
+ *          - ViewData uses string keys to store and retrieve data
+ *          - ViewBag used dynamic properties to store and retrieve data
+ *          - Resolved dynamically at runtime
+ *          - NO compile time type checking and intellisense
+ *          
+ *   - Strongly Typed View
+ *          - Specify model type in the view using @model directive
+ *                  - E.g. @model EmployeeManagement.Models.Employee
+ *          - To access the model object properties we use @Model
+ *                  - E.g. Name: @Model.Name
+ *          - Provides 'compile time type checking' and 'intellisense'
+ */
