@@ -308,3 +308,12 @@ namespace EmployeeManagement
  *   - ViewStart reduces 'code redundancy' and 'improves maintainability'
  *   - ViewStart is hierarchical (newest one overrides)
  */
+
+/* _ViewImports in ASP.NET Core MVC
+ *   - _ViewImports file is placed in the 'Views' folder
+ *   - Used to include the 'common namespaces'
+ *   - To include the 'common namespaces' use '@using' directive
+ *   - Other 'supported directives'
+ *          - @addTagHelper, @removeTagHelper, @tagHelperPrefix, @model, @inherits, @inject
+ *   - Hierarchical
+ */
