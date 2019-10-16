@@ -48,11 +48,6 @@ namespace EmployeeManagement
             {
                 routes.MapRoute("default", "{controller}/{action}/{id}");
             });
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World");
-            });
         }
     }
 }
