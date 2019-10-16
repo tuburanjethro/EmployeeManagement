@@ -44,6 +44,10 @@ namespace EmployeeManagement
             app.UseStaticFiles();
 
             app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller}/{action}/{id}");
+            });
 
             app.Run(async (context) =>
             {
@@ -316,4 +320,95 @@ namespace EmployeeManagement
  *   - Other 'supported directives'
  *          - @addTagHelper, @removeTagHelper, @tagHelperPrefix, @model, @inherits, @inject
  *   - Hierarchical
+ */
+
+/* Conventional Routing
+ *        - app.UseMvc(routes =>
+ *          {
+ *              routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+ *          });
+ *        - Note: ? makes it so that it is optional, = sets to those default values
+ */
+
+/* Atttribute Routing
+ *  - [Route] attribute is used to define the Routes
+ *  - Route attribute can be applied on the 'Controller' or the 'Controller Action Methods'
+ *  - With attribute routing, routes are placed 'next to the action methods' that will actually use them.
+ *  - Attribute routes offer a bit 'more flexibility' than conventional routes
+ *  - Require you to use app.UseMvc()
+ *  - E.g.
+ *      [Route("Home")]
+        public class HomeController : Controller
+        {
+             [Route("Details/{id?}")]
+            public ViewResult Details(int? id)
+            {
+            }
+        }
+ */
+
+/* Library Manager - LibMan
+ *   - Light-weight, client side library acquisition tool
+ *   - 'Downloads from the file system or from a CDN'
+ *   - 'libman.json is the library manager manifest file'
+ *   - Use GUI or libman.json file to manage client side packages
+ */
+
+/* Tag Helpers
+ *  - Sever side components
+ *  - Processed on the server side to create and render HTML elements
+ *  - Similar to HTML helpers
+ *  - Built-in tag helpers - Generating links, creating forms, loading assets etc.
+ *  
+ *  - Import tag helpers
+ *  - E.g. @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers (The assembly which contains all the built in tag helpers)
+ *  
+ *  - In .cshtml
+ *  - <a asp-controller="home" asp-action="index" class="btn btn-primary">Back</a>
+ */
+
+/* Why tag helpers?
+ *   - Tag helpers are more scalable
+ *   - E.g.
+ *          routes.MapRoute("default", "{controller}/{action}/{id}");
+ *          If you want to change the route to "company/{controller}/{action}/{id}"
+ *          You can but with tag helpers because it injects the values in 'controller' etc..
+ *          NOT with conventional href though (manually update each link)
+ */
+
+/* Image Tag Helper
+ *   - Note: Images are stored in the cache so that when the browser visits the site again it doesn't download the image again. 
+ *           It just serves it from the cache
+ *   - Image Tag Helper enhances the <img> tag to provide cache-busting behaviour for static image files. 
+ *          Simply add asp-append-version="true" to the <img> tag 
+ *   - Based on the content of the image, a unique hash value is calculated and appended to the image URL
+ *   - Each time the image on the server changes, a new hash value is calculated and cached
+ */
+
+/* ASP.Net Core Environment Tag Helper
+ *   - The application environment name is set using ASPNETCORE_ENVIRONMENT variable
+ *   - Environment tag helper supports rendering diferent content depending on the application environment
+ *   - Eg.
+ *          <environment include="Development">
+                <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+            </environment>
+            <environment include="Staging, Produciton">
+                <link href="https://CDN_URL/css/bootstrap.min.css"
+                      rel="stylesheet"
+                      integrity="sha384-Integrity_Hash..." />
+            </environment>
+                                OR
+            <environment exclude="Development">
+                <link href="https://CDN_URL/css/bootstrap.min.css"
+                      rel="stylesheet"
+                      integrity="sha384-Integrity_Hash..." />
+            </environment>
+    - Inside the <link> tage you can add
+            asp-fallback-href="~/lib/bootstrap/css/bootstrap.css"
+            asp-fallback-test-class="sr-only"
+            asp-fallback-test-property="position"
+            asp-fallback-test-value="absolute"
+            asp-suppress-fallback-integrity="true"
+    - This tests the to see if it downloaded the css by trying to access these values. Otherwise it will load the fallback url
+    - The last part turns off integrity if it is from a fallback source.
  */
